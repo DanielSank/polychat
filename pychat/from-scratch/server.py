@@ -5,9 +5,8 @@ To use me, run me from the command line
     python server.py
 Then, in a separate terminal window, telnet into me,
     telnet localhost 12344
-You can now send me messages from telnet. In order to see chat between two
-clients, start another telnet session in another window. You can now chat with
-yourself :-)
+You can now send me messages from telnet. Now start another telnet session in an
+other window. You can now chat with yourself between the two telnet windows :-)
 
 To understand how this module works, start with Reactor and work your way
 through the rest of the classes from there.
@@ -138,9 +137,10 @@ class Server(object):
             reactor. Usually, I call this function when I want to add a new
             ClientHandler.
         """
-    def __init__(self, add_handler):
+    def __init__(self, add_handler, remove_handler):
         self.clients = {}  # addr --> ClientHandler
         self.add_handler = add_handler
+        self.remove_handler = remove_handler
 
     def connection_made(self, socket, addr):
         """Handle a new connection.
@@ -164,7 +164,8 @@ class Server(object):
         self.add_handler(client)
 
     def client_connection_closed(self, addr):
-        self.clients.pop(addr)
+        client = self.clients.pop(addr)
+        self.remove_handler(client)
 
     def client_data_received(self, data):
         """Handle data incoming from a client.
@@ -179,7 +180,7 @@ class Server(object):
             client.buf += data
 
 
-class ClientHandler(object):
+class ClientHandler(Handler):
     """A handler representing a single client.
 
     Attributes:
@@ -240,6 +241,9 @@ class Reactor(object):
     def add_handler(self, handler):
         self.fileno_map[handler.fileno()] = handler
 
+    def remove_handler(self, handler):
+        del self.fileno_map[handler.fileno()]
+
     def run(self):
         """Run the reactor (i.e. event loop).
 
@@ -267,7 +271,7 @@ class Reactor(object):
 
 def main():
     reactor = Reactor()
-    server = Server(reactor.add_handler)
+    server = Server(reactor.add_handler, reactor.remove_handler)
     connection_handler = connection_handler_for_server(
             server,
             'localhost',
