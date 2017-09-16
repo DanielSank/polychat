@@ -13,6 +13,7 @@ through the rest of the classes from there.
 """
 
 
+import argparse
 import select
 import socket
 
@@ -274,16 +275,28 @@ class Reactor(object):
                 self.fileno_map[writer].write()
 
 
-def main():
+def main(host, port):
     reactor = Reactor()
     server = Server(reactor.add_handler, reactor.remove_handler)
     connection_handler = connection_handler_for_server(
             server,
-            'localhost',
-            C['SERVER_PORT'])
+            host,
+            port)
     reactor.add_handler(connection_handler)
     reactor.run()
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description='Test select-loop server')
+    parser.add_argument('--host',
+                        '-ho',
+                        default='localhost',
+                        help="Server hostname")
+    parser.add_argument('--port',
+                        '-p',
+                        default=C["SERVER_PORT"],
+                        help="Server port")
+    args = parser.parse_args()
+    host, port = args.host, args.port
+
+    main(host, port)
