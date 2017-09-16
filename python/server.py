@@ -1,8 +1,16 @@
 import argparse
 import asyncio
+import os
 
 
-import config as C
+import util
+
+
+this_dir = os.path.dirname(os.path.abspath(__file__))
+config_filepath = os.path.join(this_dir, '..', 'config.yaml')
+
+
+C = util.get_config(config_filepath)
 
 
 class Server:
@@ -70,10 +78,9 @@ if __name__ == "__main__":
                         help="Server hostname")
     parser.add_argument('--port',
                         '-p',
-                        default=C.SERVER_PORT,
+                        default=C["SERVER_PORT"],
                         help="Server port")
     args = parser.parse_args()
     host, port = args.host, args.port
 
     main(host, port)
-
