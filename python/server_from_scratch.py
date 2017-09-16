@@ -16,6 +16,11 @@ through the rest of the classes from there.
 import select
 import socket
 
+import util
+
+
+C = util.get_config()
+
 
 def get_listen_socket(host, port):
     """Get a socket that listens for incoming connections.
@@ -275,11 +280,10 @@ def main():
     connection_handler = connection_handler_for_server(
             server,
             'localhost',
-            12344)
+            C['SERVER_PORT'])
     reactor.add_handler(connection_handler)
     reactor.run()
 
 
 if __name__ == "__main__":
     main()
-

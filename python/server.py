@@ -69,6 +69,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Test asyncio server')
     parser.add_argument('--host',
                         '-ho',
+                        default='localhost',
                         help="Server hostname")
     parser.add_argument('--port',
                         '-p',
