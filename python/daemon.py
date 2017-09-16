@@ -1,8 +1,10 @@
 import argparse
 import asyncio
 
+import util
 
-import config as C
+
+C = util.get_config()
 
 
 class Daemon:
@@ -90,11 +92,11 @@ if __name__ == "__main__":
                         help="Server hostname")
     parser.add_argument('--server-port',
                         '-sp',
-                        default=C.SERVER_PORT,
+                        default=C["SERVER_PORT"],
                         help="Server port")
     parser.add_argument('--local-port',
                         '-lp',
-                        default=C.LOCAL_PORT,
+                        default=C["LOCAL_PORT"],
                         help="Local port")
     args = parser.parse_args()
     s_host, s_port, l_port = args.server_host, args.server_port, args.local_port
