@@ -1,16 +1,10 @@
 import argparse
 import asyncio
-import os
-
 
 import util
 
 
-this_dir = os.path.dirname(os.path.abspath(__file__))
-config_filepath = os.path.join(this_dir, '..', 'config.yaml')
-
-
-C = util.get_config(config_filepath)
+C = util.get_config()
 
 
 class Server:
