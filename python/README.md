@@ -1,9 +1,4 @@
-# Chat!
-
-## python
-Chat client/server with python 3's asyncio
-
-### Server
+## Server
 
 In a shell, run the server:
 
@@ -11,7 +6,7 @@ In a shell, run the server:
 $ python server.py --host=xxx --port=yyy
 ```
 
-### Client
+## Client
 
 Once the server is running somewhere, in a shell, run the daemon:
 
