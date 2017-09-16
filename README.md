@@ -1,7 +1,7 @@
-# python-chat
-Chat client/server with python 3's asyncio
+# Chat!
 
-## How to run
+## python
+Chat client/server with python 3's asyncio
 
 ### Server
 
