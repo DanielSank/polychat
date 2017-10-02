@@ -3,6 +3,15 @@ use std::net::{TcpListener, TcpStream};
 use std::thread;
 
 
+struct Server {
+    connections: 
+}
+
+impl Server {
+    fn data_received(&self, s: String) {
+        for connection in self.connections {
+            connection.
+
 fn get_listener(host: &str) -> TcpListener {
     let maybe_listener = TcpListener::bind(host);
     match maybe_listener {
