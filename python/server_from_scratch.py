@@ -61,6 +61,7 @@ class Handler(object):
 
     See the Reactor class for an explanation of what Handlers do.
     """
+
     def register_as_reader(self):
         """Return True if I should sign up for reading, False otherwise."""
 
@@ -85,7 +86,7 @@ class ConnectionHandler(Handler):
 
     For a socket, "listening" means that the socket is awaiting incoming
     connections. When a remote peer tries to establish a connection with a
-    listening socket, the socket becomes kkk
+    listening socket, the socket becomes readable.
 
     I participate in the reactor event loop. If the select call completes
     returning me. then that means that a client is trying to connect to me, and
@@ -101,6 +102,7 @@ class ConnectionHandler(Handler):
             function with the new socket and address as arguments. Typically,
             this function is the connection_made method of a server.
     """
+
     def __init__(self, socket, connection_made):
         self.socket = socket
         self.connection_made = connection_made
@@ -199,6 +201,7 @@ class ClientHandler(Handler):
             the client is closed.
         buf (str): Data buffer containing bytes to be sent to the client.
     """
+
     def __init__(self, socket, addr, data_received, connection_closed):
         self.socket = socket
         self.addr = addr
