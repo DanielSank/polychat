@@ -9,5 +9,5 @@ config_filepath = os.path.join(this_dir, '..', 'config.yaml')
 
 def get_config(path=config_filepath):
     with open(path, 'r') as stream:
-        result = yaml.load(stream)
+        result = yaml.load(stream, Loader=yaml.CLoader)
     return result

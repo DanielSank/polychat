@@ -56,6 +56,7 @@ def main(host, port):
         host,
         port,
         done))
+    print(f"Serving at {host}:{port}")
     try:
         loop.run_forever()
     except KeyboardInterrupt:
